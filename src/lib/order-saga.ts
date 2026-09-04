@@ -100,7 +100,7 @@ export function runOrderSaga(
   emit(t, { type: "payment.captured", source: "payment-service", state: "PAYMENT_CAPTURED", message: `Payment captured · hold converted to charge` }, "PAYMENT_CAPTURED");
 
   t += 1800;
-  const rider = RIDERS[rand(RIDERS.length)];
+  const rider = RIDERS[rand(RIDERS.length)]!;
   emit(t, { type: "dispatch.assigned", source: "dispatch-service", state: "DISPATCHED", message: `Rider matched within 5 km geo-radius · ${rider.name} accepted in ${8 + rand(20)}s` }, "DISPATCHED", { rider, etaSeconds: 45 + rand(40) });
 
   t += 2400;
