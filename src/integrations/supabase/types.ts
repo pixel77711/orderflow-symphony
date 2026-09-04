@@ -14,13 +14,202 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      order_events: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          order_id: string
+          source: string
+          state: string
+          type: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          order_id: string
+          source: string
+          state: string
+          type: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          order_id?: string
+          source?: string
+          state?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_events_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order_items: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          order_id: string
+          price: number
+          qty: number
+          sku: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          order_id: string
+          price: number
+          qty: number
+          sku: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          order_id?: string
+          price?: number
+          qty?: number
+          sku?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          created_at: string
+          dispatch_at: string | null
+          eta_at: string | null
+          id: string
+          reference: string
+          rider_name: string | null
+          rider_rating: number | null
+          rider_vehicle: string | null
+          state: string
+          total: number
+          trace_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          dispatch_at?: string | null
+          eta_at?: string | null
+          id?: string
+          reference: string
+          rider_name?: string | null
+          rider_rating?: number | null
+          rider_vehicle?: string | null
+          state?: string
+          total?: number
+          trace_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          dispatch_at?: string | null
+          eta_at?: string | null
+          id?: string
+          reference?: string
+          rider_name?: string | null
+          rider_rating?: number | null
+          rider_vehicle?: string | null
+          state?: string
+          total?: number
+          trace_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      payments: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          order_id: string
+          provider_ref: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          order_id: string
+          provider_ref: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          order_id?: string
+          provider_ref?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          created_at: string
+          description: string
+          name: string
+          price: number
+          sku: string
+          stock: number
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          name: string
+          price: number
+          sku: string
+          stock?: number
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          name?: string
+          price?: number
+          sku?: string
+          stock?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      advance_orders: { Args: never; Returns: undefined }
+      place_order: { Args: { items: Json }; Returns: string }
     }
     Enums: {
       [_ in never]: never
